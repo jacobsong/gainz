@@ -1,5 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+
 async function getInventory(url) {
   const items = [];
   const { data } = await axios.get(url);
