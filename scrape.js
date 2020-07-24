@@ -1,18 +1,8 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-
-async function getURL(url) {
-  try {
-    const { data } = await axios.get(url);
-    return data;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 async function getInventory(url) {
   const items = [];
-  const data = await getURL(url);
+  const { data } = await axios.get(url);
   const $ = cheerio.load(data);
   const stockStatus = $('.data-table script:contains(optionStockStatus[)');
   stockStatus.each((index, elem) => {
