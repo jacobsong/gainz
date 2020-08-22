@@ -33,7 +33,7 @@ setInterval(async () => {
 
 
 const check = async () => {
-  const results = await scrape.getInventory('https://www.roguefitness.com/rogue-calibrated-lb-steel-plates');
+  const results = await scrape.getInventory('https://www.roguefitness.com/rogue-kg-change-plates');
   let isChanged = false;
     for (let i of results) {
       const row = await queries.getItem(db, i.itemId);
@@ -54,11 +54,11 @@ const check = async () => {
 
 // Respond to commands
 client.on("message", async message => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
-  const args = message.content.slice(prefix.length).split(' ');
+  if (!message.content.startsWith("check") || message.author.bot) return;
+  const args = message.content.split(' ');
   const commandName = args.shift().toLowerCase();
   if (commandName == "check") {
-    const results = await scrape.getInventory('https://www.roguefitness.com/rogue-calibrated-lb-steel-plates');
+    const results = await scrape.getInventory('https://www.roguefitness.com/rogue-kg-change-plates');
     message.reply(createEmbed(results));
   }
 });
