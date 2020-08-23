@@ -55,7 +55,7 @@ const check = async () => {
 
 // Respond to commands
 client.on("message", async message => {
-  if (!message.content.startsWith("check") || message.author.bot) return;
+  if (message.author.bot) return;
   const args = message.content.split(' ');
   const commandName = args.shift().toLowerCase();
   if (commandName == "check") {
@@ -74,7 +74,7 @@ const createEmbed = (results) => {
   let desc = "```";
   results.forEach((i) => {
     let statusDesc = parseInt(i.inStock) > 0 ? "✅" : "❌";
-    desc += `${statusDesc} ${i.name}\n`;
+    desc += `${statusDesc} ${i.name.substring(0, 26)}\n`;
   });
   desc += "```";
   embed.setDescription(desc);
