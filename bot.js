@@ -50,6 +50,7 @@ const check = async () => {
     if (isChanged) {
       (await client.users.fetch(discordId)).send(createEmbed(results));
     }
+  console.log('succesfully performed check');
 };
 
 
