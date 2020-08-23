@@ -7,6 +7,7 @@ const Discord = require("discord.js");
 const config = require("./config/config");
 const prefix = ".";
 const discordId = '191635691594186753';
+const itemUrl = 'https://www.roguefitness.com/rogue-calibrated-kg-steel-plates';
 
 (async () => {
 
@@ -33,7 +34,7 @@ setInterval(async () => {
 
 
 const check = async () => {
-  const results = await scrape.getInventory('https://www.roguefitness.com/rogue-kg-change-plates');
+  const results = await scrape.getInventory(itemUrl);
   let isChanged = false;
     for (let i of results) {
       const row = await queries.getItem(db, i.itemId);
@@ -58,7 +59,7 @@ client.on("message", async message => {
   const args = message.content.split(' ');
   const commandName = args.shift().toLowerCase();
   if (commandName == "check") {
-    const results = await scrape.getInventory('https://www.roguefitness.com/rogue-kg-change-plates');
+    const results = await scrape.getInventory(itemUrl);
     message.reply(createEmbed(results));
   }
 });
