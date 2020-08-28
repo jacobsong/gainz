@@ -7,7 +7,7 @@ const Discord = require("discord.js");
 const config = require("./config/config");
 const prefix = ".";
 const discordId = '191635691594186753';
-const itemUrl = 'https://www.roguefitness.com/rogue-calibrated-kg-steel-plates';
+const itemUrl = 'https://www.roguefitness.com/rogue-color-echo-bumper-plate';
 
 (async () => {
 
@@ -70,7 +70,7 @@ client.on("message", async message => {
 const createEmbed = (results) => {
   const embed = new Discord.MessageEmbed()
     .setColor('GREEN')
-    .setTitle("Stock Check")
+    .setTitle(itemUrl)
     .setTimestamp();
   let desc = "```";
   results.forEach((i) => {
