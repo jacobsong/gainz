@@ -33,9 +33,11 @@ setInterval(async () => {
   await check(itemUrl);
 }, 34000);
 
-setInterval(async () => {
-  await check(itemUrl2);
-}, 68000);
+setTimeout(async () => {
+  setInterval(async () => {
+    await check(itemUrl2);
+  }, 34000)
+}, 34000);
 
 
 const check = async (url) => {
