@@ -7,7 +7,8 @@ const Discord = require("discord.js");
 const config = require("./config/config");
 const prefix = ".";
 const discordId = '191635691594186753';
-const itemUrl = 'https://www.roguefitness.com/rogue-color-echo-bumper-plate';
+const itemUrl = "https://www.roguefitness.com/rogue-color-echo-bumper-plate";
+const itemUrl2 = "https://www.roguefitness.com/rogue-lb-change-plates";
 
 (async () => {
 
@@ -29,12 +30,16 @@ client.once("ready", () => {
 
 // Check stock every 30 seconds, send DM if stock changes
 setInterval(async () => {
-  await check();
-}, 30000);
+  await check(itemUrl);
+}, 34000);
+
+setInterval(async () => {
+  await check(itemUrl2);
+}, 68000);
 
 
-const check = async () => {
-  const results = await scrape.getInventory(itemUrl);
+const check = async (url) => {
+  const results = await scrape.getInventory(url);
   let isChanged = false;
     for (let i of results) {
       const row = await queries.getItem(db, i.itemId);
@@ -50,7 +55,7 @@ const check = async () => {
     if (isChanged) {
       (await client.users.fetch(discordId)).send(createEmbed(results));
     }
-  console.log('succesfully performed check');
+  console.log('succesfully performed check ' + url);
 };
 
 
@@ -61,7 +66,19 @@ client.on("message", async message => {
   const commandName = args.shift().toLowerCase();
   if (commandName == "check") {
     const results = await scrape.getInventory(itemUrl);
-    message.reply(createEmbed(results));
+    if (results.isError !== undefined) {
+      message.reply(results.msg);
+    } else {
+      message.reply(createEmbed(results));
+    }
+  }
+  if (commandName == "check2") {
+    const results = await scrape.getInventory(itemUrl2);
+    if (results.isError !== undefined) {
+      message.reply(results.msg);
+    } else {
+      message.reply(createEmbed(results));
+    }
   }
 });
 
