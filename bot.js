@@ -7,8 +7,7 @@ const Discord = require("discord.js");
 const config = require("./config/config");
 const prefix = ".";
 const discordId = '191635691594186753';
-const itemUrl = "https://www.roguefitness.com/rogue-color-echo-bumper-plate";
-const itemUrl2 = "https://www.roguefitness.com/rogue-lb-change-plates";
+const itemUrl = "https://www.roguefitness.com/rogue-lb-change-plates";
 
 (async () => {
 
@@ -31,13 +30,7 @@ client.once("ready", () => {
 // Check stock every 30 seconds, send DM if stock changes
 setInterval(async () => {
   await check(itemUrl);
-}, 34000);
-
-setTimeout(async () => {
-  setInterval(async () => {
-    await check(itemUrl2);
-  }, 34000)
-}, 34000);
+}, 20000);
 
 
 const check = async (url) => {
@@ -68,14 +61,6 @@ client.on("message", async message => {
   const commandName = args.shift().toLowerCase();
   if (commandName == "check") {
     const results = await scrape.getInventory(itemUrl);
-    if (results.isError !== undefined) {
-      message.reply(results.msg);
-    } else {
-      message.reply(createEmbed(results));
-    }
-  }
-  if (commandName == "check2") {
-    const results = await scrape.getInventory(itemUrl2);
     if (results.isError !== undefined) {
       message.reply(results.msg);
     } else {
